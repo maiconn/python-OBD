@@ -225,8 +225,13 @@ class OBD(object):
             print ("Port rate: " + self.get_port_baudrate())
             print ("The following OBD commands are supported:")
 
+            _mylist=[]
             for c in self.supported_commands:
-                print(str(c))
+                _mylist.append(str(c))
+            _mylist.sort()
+            for i in _mylist:
+                print i
+            
         else:
             print ("Impossible to print discovered information: no connection to the ECU.")
             
