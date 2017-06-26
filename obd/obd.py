@@ -219,11 +219,11 @@ class OBD(object):
             protocol, port name, port baudrate and all supported commands.
         """
         if self.interface is not None:
-            print ("The following information was used to connect to the ECU:")
+            print ("The following settings were used to connect to the ECU:")
             print ("Protocole: " + self.get_protocol_name())
             print ("Port name: " + self.get_port_name())
             print ("Port rate: " + self.get_port_baudrate())
-            print ("The following commands are supported:")
+            print ("The following OBD commands are supported:")
 
             for c in self.supported_commands:
                 print(str(c))
