@@ -117,7 +117,7 @@ class ELM327:
             ["NO DATA",             "ELM327 returned no data, either because answer is empty or not understood or not supported."],
             ["<RX ERROR",           "ELM327 detected an error in the received CAN data. Check connection parameters."],
             ["STOPPED",             "ELM327 reports that OBD operation is interrupted by a received RS232 character, or by a low level on the RTS pin."],
-            ["UNABLE TO CONNECT     "ELM327 tried all available protocols, and could not detect a compatible one."]
+            ["UNABLE TO CONNECT",     "ELM327 tried all available protocols, and could not detect a compatible one."]
             ]
 
 
