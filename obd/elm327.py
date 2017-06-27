@@ -135,7 +135,6 @@ class ELM327:
         self.__port     = None
         self.__protocol = UnknownProtocol([])
 
-
         # ------------- open port -------------
         try:
             self.__port = serial.Serial(portname, \
@@ -475,12 +474,12 @@ class ELM327:
             # end on chevron (ELM prompt character)
             if self.ELM_PROMPT in buffer:
                 break
-            else :
-                # Check errors received by ELM327 and send only a warning
-                for iError in self._ERROR_MESSAGES:
-                    if iError[0] in buffer:
-                         logger.warning(iError[1])
-                         break
+         
+        #Check errors received by ELM327 and write debug
+        for iError in self._ERROR_MESSAGES:
+            if iError[0] in buffer:
+                logger.debug(iError[1])
+                break   
 
         # log, and remove the "bytearray(   ...   )" part
         logger.debug("read: " + repr(buffer)[10:-1])
