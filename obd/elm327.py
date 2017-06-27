@@ -102,22 +102,22 @@ class ELM327:
     _TRY_BAUDS = [ 38400, 9600, 230400, 115200, 57600, 19200 ]
 
     _ERROR_MESSAGES = [
-            ["?",                   "ELM327 reports misundersting command received on the RS232 input."],
-            ["ACT ALERT",           "ELM327 warns no RS232 activity. Might switch to low-power standby mode."],
-            ["BUFFER FULL",         "ELM327 reports that RS232 buffer is filling at a faster rate than transmission. Increase baud speed."],
-            ["BUS BUSY",            "ELM327 reports too much activity on BUS. Check wiring."],
-            ["BUS ERROR",           "ELM327 received a BUS error. This might be normal when starting CAN listening."],
-            ["CAN ERROR",           "ELM327 received a CAN system ERROR. CAN has difficulty initializing, sending or receiving."],
-            ["DATA ERROR",          "ELM327 received a error response from vehicule, data lost."],
-            ["<DATA ERROR",         "ELM327 reported an error in the line number following."],
-            ["ERR",                 "ELM327 reported an error number following."],
-            ["FB ERROR",            "ELM327 detected a feedBack(FB) error affecting signal. Check cable."],
-            ["LP ALERT",            "ELM327 is about to switch to the Low Power (standby) mode within 2 seconds."],
-            ["LV RESET",            "ELM327 performed a low-voltage reset."],
-            ["NO DATA",             "ELM327 returned no data, either because answer is empty or not understood or not supported."],
-            ["<RX ERROR",           "ELM327 detected an error in the received CAN data. Check connection parameters."],
-            ["STOPPED",             "ELM327 reports that OBD operation is interrupted by a received RS232 character, or by a low level on the RTS pin."],
-            ["UNABLE TO CONNECT",     "ELM327 tried all available protocols, and could not detect a compatible one."]
+            [bytes("?"),                    "?. ELM327 reports misundersting command received on the RS232 input."],
+            [bytes("ACT ALERT"),            "ACT ALERT: ELM327 warns no RS232 activity. Might switch to low-power standby mode."],
+            [bytes("BUFFER FULL"),          "BUFFER FULL: ELM327 reports that RS232 buffer is filling at a faster rate than transmission. Increase baud speed."],
+            [bytes("BUS BUSY"),             "BUS BUSY: ELM327 reports too much activity on BUS. Check wiring."],
+            [bytes("BUS ERROR"),            "BUS ERROR: ELM327 reports a BUS error. This might be normal when starting CAN listening."],
+            [bytes("CAN ERROR"),            "CAN ERROR: ELM327 reports a CAN system ERROR. CAN has difficulty initializing, sending or receiving."],
+            [bytes("<DATA ERROR"),          "<DATA ERROR: ELM327 reports an error in the line number following."],
+            [bytes("DATA ERROR"),           "DATA ERROR: ELM327 reports an error response from vehicule, data lost."],
+            [bytes("FB ERROR"),             "EFB ERROR: ELM327 reports a feedBack(FB) error affecting signal. Check cable."],
+            [bytes("LP ALERT"),             "LP ALERT: ELM327 is about to switch to the Low Power (standby) mode within 2 seconds."],
+            [bytes("LV RESET"),             "LV RESET: ELM327 performed a low-voltage reset."],
+            [bytes("NO DATA"),              "NO DATA: ELM327 returns no data, either because answer is empty or not understood or not supported."],
+            [bytes("<RX ERROR"),            "<RX ERROR: ELM327 reports an error in the received CAN data. Check connection parameters."],
+            [bytes("STOPPED"),              "STOPPED: ELM327 reports that OBD operation was interrupted by a received RS232 character, or by a low level on the RTS pin."],
+            [bytes("UNABLE TO CONNECT"),    "UNABLE TO CONNECT: ELM327 tried all available protocols, and could not detect a compatible one."],
+            [bytes("ERR"),                  "ERR: ELM327 reports an error number following."]
             ]
 
 
@@ -475,6 +475,12 @@ class ELM327:
             # end on chevron (ELM prompt character)
             if self.ELM_PROMPT in buffer:
                 break
+            else :
+                # Check errors received by ELM327 and send only a warning
+                for iError in self._ERROR_MESSAGES:
+                    if iError[0] in buffer:
+                         logger.warning(iError[1])
+                         break
 
         # log, and remove the "bytearray(   ...   )" part
         logger.debug("read: " + repr(buffer)[10:-1])
