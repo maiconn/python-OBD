@@ -101,6 +101,24 @@ class ELM327:
     # going to be less picky about the time required to detect it.
     _TRY_BAUDS = [ 38400, 9600, 230400, 115200, 57600, 19200 ]
 
+    _ERROR_MESSAGES = [
+            "?",            # Misunderstood command received on the RS232 input.
+            "ACT ALERT",    # No RS232 activity, switching to low-power standby mode
+            "BUFFER FULL",  # RS232buffer is filling at a faster rate than transmission
+            "BUS BUSY",
+            "BUS ERROR",
+            "CAN ERROR",
+            "DATA ERROR",
+            "<DATA ERROR",
+            "ERR",
+            "FB ERROR",
+            "LP ALERT",
+            "LV RESET",
+            "NO DATA",
+            "<RX ERROR",
+            "STOPPED",
+            "UNABLE TO CONNECT"
+            ]
 
 
     def __init__(self, portname, baudrate, protocol):
@@ -449,7 +467,7 @@ class ELM327:
 
             # if nothing was recieved
             if not data:
-                logger.warning("Failed to read port")
+                logger.warning("Failed to read port: empty data.")
                 break
 
             buffer.extend(data)
