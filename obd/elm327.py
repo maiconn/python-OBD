@@ -102,22 +102,22 @@ class ELM327:
     _TRY_BAUDS = [ 38400, 9600, 230400, 115200, 57600, 19200 ]
 
     _ERROR_MESSAGES = [
-            "?",            # Misunderstood command received on the RS232 input.
-            "ACT ALERT",    # No RS232 activity, switching to low-power standby mode
-            "BUFFER FULL",  # RS232buffer is filling at a faster rate than transmission
-            "BUS BUSY",
-            "BUS ERROR",
-            "CAN ERROR",
-            "DATA ERROR",
-            "<DATA ERROR",
-            "ERR",
-            "FB ERROR",
-            "LP ALERT",
-            "LV RESET",
-            "NO DATA",
-            "<RX ERROR",
-            "STOPPED",
-            "UNABLE TO CONNECT"
+            ["?",                   "ELM327 reports misundersting command received on the RS232 input."],
+            ["ACT ALERT",           "ELM327 warns no RS232 activity. Might switch to low-power standby mode."],
+            ["BUFFER FULL",         "ELM327 reports that RS232 buffer is filling at a faster rate than transmission. Increase baud speed."],
+            ["BUS BUSY",            "ELM327 reports too much activity on BUS. Check wiring."],
+            ["BUS ERROR",           "ELM327 received a BUS error. This might be normal when starting CAN listening."],
+            ["CAN ERROR",           "ELM327 received a CAN system ERROR. CAN has difficulty initializing, sending or receiving."],
+            ["DATA ERROR",          "ELM327 received a error response from vehicule, data lost."],
+            ["<DATA ERROR",         "ELM327 reported an error in the line number following."],
+            ["ERR",                 "ELM327 reported an error number following."],
+            ["FB ERROR",            "ELM327 detected a feedBack(FB) error affecting signal. Check cable."],
+            ["LP ALERT",            "ELM327 is about to switch to the Low Power (standby) mode within 2 seconds."],
+            ["LV RESET",            "ELM327 performed a low-voltage reset."],
+            ["NO DATA",             "ELM327 returned no data, either because answer is empty or not understood or not supported."],
+            ["<RX ERROR",           "ELM327 detected an error in the received CAN data. Check connection parameters."],
+            ["STOPPED",             "ELM327 reports that OBD operation is interrupted by a received RS232 character, or by a low level on the RTS pin."],
+            ["UNABLE TO CONNECT     "ELM327 tried all available protocols, and could not detect a compatible one."]
             ]
 
 
