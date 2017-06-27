@@ -230,7 +230,7 @@ class OBD(object):
                 _mylist.append(str(c))
             _mylist.sort()
             for i in _mylist:
-                print i
+                print (i)
             
         else:
             print ("Impossible to print discovered information: no connection to the ECU.")
