@@ -286,7 +286,7 @@ class OBD(object):
         SIMULADOR:
                     0 = SEM SIMULADOR
                     1 = OBDSIM
-                    2 = ECU Simulator PRO
+                    2 = ECU Engine PRO
     """
     def query_dtc(self, cmd=commands.GET_DTC, simulador=0):
         # se for sem simulador
@@ -305,6 +305,12 @@ class OBD(object):
         logger.info("Sending command: %s" % str(cmd))
         cmd_string = self.__build_command_string(cmd)
         lines = self.interface.send_and_parse(cmd=cmd_string, return_lines=True)
+
+        # if we're sending a new command, note it
+        # first check that the current command WASN'T sent as an empty CR
+        # (CR is added by the ELM327 class)
+        if cmd_string:
+            self.__last_command = cmd_string
         
         codes = []
         for line in lines:
@@ -316,10 +322,9 @@ class OBD(object):
 
             ## SE FOR O OBDSIM
             if simulador == 1:
-                #pdb.set_trace()
                 line = line[7:]
                 bytes_line = bytearray(unhexlify(line))
-            ## SE FOR O Simulator PRO
+            ## SE FOR O ECU Engine PRO
             elif simulador == 2:
                 line = line[9:]
                 bytes_line = bytearray(unhexlify(line))

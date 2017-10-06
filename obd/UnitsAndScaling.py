@@ -41,6 +41,8 @@ Unit.define("ratio = []")
 Unit.define("gps = gram / second = GPS = grams_per_second")
 Unit.define("lph = liter / hour = LPH = liters_per_hour")
 Unit.define("ppm = count / 1000000 = PPM = parts_per_million")
+Unit.define("ppm = count / 1000000 = PPM = parts_per_million")
+Unit.define("rpm = revolution / minute = revolutions_per_minute")
 
 
 
