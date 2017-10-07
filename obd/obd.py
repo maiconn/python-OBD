@@ -291,7 +291,7 @@ class OBD(object):
     def query_dtc(self, cmd=commands.GET_DTC, simulador=0):
         # se for sem simulador
         if simulador == 0:
-            return query(cmd)
+            return self.query(cmd).value
 
         if self.status() == OBDStatus.NOT_CONNECTED:
             logger.warning("Query failed, no connection available")
