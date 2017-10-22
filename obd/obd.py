@@ -136,7 +136,7 @@ class OBD(object):
                     #    command = commands[2][pid]
                     #   self.supported_commands.add(command)
                     
-                    print(str(command))
+                    logger.debug(str(command))
 
         logger.info("finished querying with %d commands supported" % len(self.supported_commands))
 
@@ -330,7 +330,7 @@ class OBD(object):
                 bytes_line = bytearray(unhexlify(line))
 
             for n in range(1, len(bytes_line), 2):
-                print(str(bytes_line[n-1]) + " | " + str(bytes_line[n]))
+                logger.debug(str(bytes_line[n-1]) + " | " + str(bytes_line[n]))
                 # parse the code
                 dtc = parse_dtc( (bytes_line[n-1], bytes_line[n]) )
 

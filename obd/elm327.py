@@ -406,7 +406,7 @@ class ELM327:
             returns result of __read() (a list of line strings)
             after an optional delay.
         """
-        print("self.__write(cmd): "+str(cmd))
+        logger.debug("self.__write(cmd): "+str(cmd))
         self.__write(cmd)
 
         if delay is not None:
@@ -415,7 +415,7 @@ class ELM327:
 
         reading = self.__read()
 
-        print("self.__read(cmd): "+str(reading))
+        logger.debug("self.__read(cmd): "+str(reading))
         return reading
 
 
